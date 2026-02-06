@@ -1,46 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine's Invitation</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffcccb;
-            text-align: center;
-            padding: 20px;
-        }
-        .header {
-            color: #ff69b4;
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-        .invitation {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .date {
-            font-size: 1.2em;
-            color: #a52a2a;
-            margin-top: 10px;
-        }
-        .rsvp {
-            font-weight: bold;
-            margin-top: 20px;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Valentine 💖</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ffd6e8, #ffeef6);
+    overflow: hidden;
+  }
+
+  .emoji-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-size: 38px;
+    opacity: 0.25;
+    pointer-events: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    animation: float 18s linear infinite;
+  }
+
+  @keyframes float {
+    from { transform: translateY(0); }
+    to { transform: translateY(-200px); }
+  }
+
+  .container {
+    position: relative;
+    background: white;
+    padding: 45px 55px;
+    border-radius: 28px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    z-index: 2;
+  }
+
+  h1 {
+    font-size: 38px;
+    margin-bottom: 25px;
+    font-weight: bold;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+  }
+
+  button {
+    font-size: 22px;
+    padding: 15px 38px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  button:hover {
+    transform: scale(1.12);
+  }
+
+  .yes {
+    background: #ff4d6d;
+    color: white;
+  }
+
+  .no {
+    background: #333;
+    color: white;
+    position: absolute;
+  }
+
+  .heart {
+    position: absolute;
+    font-size: 30px;
+    animation: explode 2.2s ease-out forwards;
+  }
+
+  @keyframes explode {
+    0% { opacity: 1; transform: translate(0,0) scale(1); }
+    100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(2.2); }
+  }
+
+  .final-text {
+    font-size: 42px;
+    font-weight: bold;
+    color: #ff4d6d;
+    margin-top: 20px;
+  }
+</style>
 </head>
 <body>
-    <div class="header">You're Invited!</div>
-    <div class="invitation">
-        <p>Join us for a special Valentine’s celebration!</p>
-        <p class="date">Date: February 14, 2026</p>
-        <p class="date">Time: 7:00 PM</p>
-        <p>Location: The Moonlight Garden</p>
-        <p class="rsvp">Please RSVP by February 7, 2026</p>
-    </div>
+
+<!-- Romantic Music -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/audio/2023/03/13/audio_0c46a6e1d1.mp3" type="audio/mpeg">
+</audio>
+
+<div class="emoji-bg">
+  💖 🌸 ❤️ 🌷 💐 🌹 💕 🌼 🌺 💘 💖 🌸 ❤️ 🌷 💐 🌹 💕 🌼 🌺 💘
+</div>
+
+<div class="container" id="box">
+  <h1 id="question">Salma, will you be my valentine's? 💘</h1>
+  <div class="buttons" id="buttons">
+    <button class="yes" onclick="celebrate()">Yes 🔥</button>
+    <button class="no" id="noBtn">No 😈</button>
+  </div>
+</div>
+
+<script>
+  const noBtn = document.getElementById("noBtn");
+
+  // No button runs away and disappears
+  noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 120);
+    const y = Math.random() * (window.innerHeight - 60);
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
+    setTimeout(() => noBtn.style.display = "none", 800);
+  });
+
+  function celebrate() {
+    // Hearts explosion
+    for (let i = 0; i < 40; i++) {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "💖";
+      heart.style.left = "50%";
+      heart.style.top = "50%";
+      heart.style.setProperty("--x", `${Math.random()*500 - 250}px`);
+      heart.style.setProperty("--y", `${Math.random()*500 - 250}px`);
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 2200);
+    }
+
+    // Replace content
+    document.getElementById("question").innerHTML = "YESSSS 🔥💍";
+    document.getElementById("buttons").style.display = "none";
+
+    const finalText = document.createElement("div");
+    finalText.className = "final-text";
+    finalText.innerHTML = "Future Mrs. Abouelfetouh ❤️";
+    document.getElementById("box").appendChild(finalText);
+
+    // Fake screenshot confirmation (cute & harmless)
+    setTimeout(() => {
+      alert("Screenshot captured 📸❤️\n(You're officially taken 😏)");
+    }, 1200);
+  }
+</script>
+
 </body>
 </html>
